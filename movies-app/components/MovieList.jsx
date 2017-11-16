@@ -10,8 +10,12 @@ class MovieList extends Component {
       dataLoaded: false,
     }
   }
-  // set up componentDidMount for API fetch //
-  componentDidMount(){
+componentDidMount(){
+  this.getAllMovies();
+}
+
+  // set up componentDidMount for API fetch
+  getAllMovies(){
     fetch('/api/movies', { credentials: 'inlcude' })
       .then(res => res.json())
       .then(res => {
@@ -22,6 +26,22 @@ class MovieList extends Component {
     }).catch(err => console.log(err));
   }
 
+handleFormSubmit(method, e, data, id){
+  e.preventDefault()
+  fetch('/api/movies/${id || ''}' {
+    method: method,
+    credentials:'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  .then(res => res.json())
+  .then(res => {
+    console.log(res);
+    this.getAllMovies();
+  }).catch(err => console.log(err));
+}
 // displays movieList on screen//
   renderMovieList(){
     if(this.state.dataLoaded){
