@@ -1,14 +1,22 @@
 //import react //
 import React, { Component } from 'react';
 
+import Movie from './Movie';
+
+import MovieForm from './MovieForm';
+
 // setting up MovieList //
 class MovieList extends Component {
-  constructor (){
-    super();
+  constructor (props){
+    super(props);
     this.state = {
       movies: null,
       dataLoaded: false,
+      auth: props.auth
+      currentlyEditing: null,
     }
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.setEditing =this.setEditing.bind(this);
   }
 componentDidMount(){
   this.getAllMovies();
