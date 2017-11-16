@@ -23,7 +23,7 @@ app.use (
     key: process.env.SECRET_KEY,
     secret: process.env.SECRET_KEY,
     resave: false,
-    saceUnitialized: true,
+    saveUninitialized: true,
   }),
 );
 app.use(passport.initialize());
@@ -42,8 +42,8 @@ app.get('/', (req, res) => {
   res.send("Hello Mofongo!");
 });
 
-// const authRoutes =  require('./routes/auth-routes');
-// app.use('/api/auth', authRoutes);
+const authRoutes =  require('./routes/auth-routes');
+app.use('/api/auth', authRoutes);
 // const movieRoutes = require('./routes/movie-routes');
 // app.use('/api/movies', movieRoutes);
 
