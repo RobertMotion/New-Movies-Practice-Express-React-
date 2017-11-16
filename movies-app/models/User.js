@@ -15,7 +15,7 @@ User.create = user => {
 		(username, email, password_digest)
 		VALUES ($1, $2, $3)
 		RETURNING *
-		`, [user.username, user.email, user.password_digest])
+		`, [user.username, user.email, user.password_digest]);
 };
 
 module.exports = User;

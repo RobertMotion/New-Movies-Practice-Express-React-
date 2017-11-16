@@ -11,7 +11,7 @@ usersController.create = (req, res, next) => {
 		email: req.body.email,
 		password_digest: hash,
 	}).then(user => {
-		req.login(user, (err) =>{
+		req.login(user, (err) => {
 			if (err) return next(err);
 			res.status(201).json({
 				message: 'user successfully created',
