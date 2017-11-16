@@ -34,6 +34,12 @@ componentDidMount(){
     }).catch(err => console.log(err));
   }
 
+setEditing(id){
+  this.setState({
+    currentlyEditing: id,
+  })
+}
+
 handleFormSubmit(method, e, data, id){
   e.preventDefault()
   fetch('/api/movies/${id || ''}' {
@@ -54,7 +60,10 @@ handleFormSubmit(method, e, data, id){
   renderMovieList(){
     if(this.state.dataLoaded){
       return this.state.movies.map(movie => {
-        return <Movie key= { movie.id } movie={ movie } />
+        if(movie.id === this.state.currentlyEditing)
+        return <MovieForm movie={movie} handleFormSubmit={this.handleFormSubmit} isAdd={false} key={movie.id} />
+        })
+        else return <Movie key= { movie.id } movie={ movie }  auth:{this.state.auth}/>
       })
       }else return <p>Loading...</p>
     }
