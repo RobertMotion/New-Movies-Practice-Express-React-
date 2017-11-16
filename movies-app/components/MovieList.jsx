@@ -25,7 +25,9 @@ class MovieList extends Component {
 // displays movieList on screen//
   renderMovieList(){
     if(this.state.dataLoaded){
-      return <h1>Our movie list will go here!</h1>
+      return this.state.movies.map(movie => {
+        return <Movie key= { movie.id } movie={ movie } />
+      })
       }else return <p>Loading...</p>
     }
 
@@ -33,6 +35,7 @@ class MovieList extends Component {
       return(
         <div classNaame ="movielist">
           {this.renderMovieList()}
+          <Route exact path='/movies' render={() => <MovieList auth= {this.state.auth} />} />
         </div>
       )
     }
