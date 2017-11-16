@@ -4,7 +4,7 @@ const movieController = {};
 
 movieController.index = (req, res, next) => {
   Movie.findAll()
-  .then(movie => {
+  .then(movies => {
     res.json({
       message: 'ok',
       data: {
