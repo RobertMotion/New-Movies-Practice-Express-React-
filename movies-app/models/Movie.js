@@ -7,21 +7,28 @@ Movie.findAll = () => {
 };
 
 Movie.findById = (id) => {
-  return db.one('SELECT * FROM movies WHERE id = $1', id);
+  return db.oneOrNone(`SELECT * FROM movies WHERE id = $1`, [id]);
 };
 
-Movie.create = (movie) => {
+Movie.create = (movie, userId) => {
   return db.one(`
     INSERT INTO movies
-    (title, description, genre)
-    VALUES ($1, $2, $3, $4, $5)
+    (title, description, genre, user_id)
+    VALUES ($1, $2, $3, $4)
     RETURNING *
-    `, [movie.title, movie.description, movie.genre]);
+    `, [movie.title, movie.description, movie.genre, userId]);
 };
 
 Movie.update = (movie, id) => {
-  return db.none('DELETE FROM movies WHERE id = $1', id);
-};
+  return db.one(`
+      UPDATE movies SET
+      title = $1,
+      description = $2,
+      genre = $3
+      WHERE id = $4
+      RETURNING *
+    `, [movie.title, movie.description, movie.genre, id]);
+  }
 
 Movie.destroy = (id) => {
   return db.none(`
